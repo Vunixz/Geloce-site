@@ -63,9 +63,9 @@
   /* ----- CARREGAR IMAGEM ----- */
   function loadImage() {
     image = new Image();
-    image.crossOrigin = 'anonymous';
 
     image.onload = function () {
+
       imageLoaded = true;
       resizeCanvas();
       startLoop();
@@ -140,9 +140,12 @@
     maskCtx.setTransform(dpr, 0, 0, dpr, 0, 0);
     
     // Usar filtro no maskCtx para suavizar as bolhas (fluido)
-    maskCtx.filter = `blur(${CONFIG.BLUR_AMOUNT}px)`;
+    const isMobile = window.innerWidth <= 768;
+    const blurAmount = isMobile ? (CONFIG.BLUR_AMOUNT / 2) : CONFIG.BLUR_AMOUNT;
+    maskCtx.filter = `blur(${blurAmount}px)`;
     particles.forEach(p => p.draw(maskCtx));
     maskCtx.filter = 'none'; // reset
+
 
     // 3. Limpar canvas principal
     ctx.clearRect(0, 0, cw, ch);
@@ -196,12 +199,45 @@
     }
   }
 
+  function handleTouch(e) {
+    if (e.touches.length > 0) {
+      const touch = e.touches[0];
+      const rect = wrap.getBoundingClientRect();
+      mouseX = touch.clientX - rect.left;
+      mouseY = touch.clientY - rect.top;
+      isHovering = true;
+      
+      // Prevent scrolling when interacting with the canvas
+      if (e.cancelable) e.preventDefault();
+    }
+  }
+
   function init() {
     wrap.addEventListener('mousemove', handleMouseMove);
     wrap.addEventListener('mouseleave', handleMouseLeave);
+    
+    // Touch support
+    wrap.addEventListener('touchstart', handleTouch, { passive: false });
+    wrap.addEventListener('touchmove', handleTouch, { passive: false });
+    wrap.addEventListener('touchend', handleMouseLeave);
+
     window.addEventListener('resize', resizeCanvas);
     loadImage();
   }
+
+  // Fallback para caso a imagem demore ou falhe (CORS file://)
+  window.addEventListener('load', () => {
+    setTimeout(() => {
+      if (!imageLoaded) {
+        console.warn("Reveal image fallback triggered.");
+        // Se a imagem falhar, ainda mostramos a "animação" das partículas se possível
+        // Mas a maioria das vezes o erro é apenas atraso no file://
+        resizeCanvas();
+        startLoop();
+      }
+    }, 1000);
+  });
+
 
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', init);

@@ -202,9 +202,10 @@ h1 {
 }
 
 h2 {
-  font-size: clamp(2.5rem, 5vw, 4rem);
+  font-size: clamp(2.2rem, 4vw, 3.5rem); /* Reduzido levemente */
   letter-spacing: -0.02em;
 }
+
 
 h3 {
   font-size: clamp(1.4rem, 2.5vw, 2rem);
@@ -331,6 +332,11 @@ nav {
   width: 100%;
 }
 
+.nav-toggle {
+  display: none;
+}
+
+
 /* ----- 7. HERO SECTION ----- */
 #hero {
   min-height: 100vh;
@@ -371,41 +377,48 @@ nav {
   min-height: 100vh;
   display: flex;
   align-items: center;
-  padding: var(--space-xl) var(--space-md);
+  padding: 80px 20px; /* Mais espaço para o container amarelo respirar */
 }
 
+
 .reveal-container {
-  max-width: 1600px;
+  max-width: 1300px; /* Aumentado para PC conforme pedido */
   margin: 0 auto;
   display: grid;
-  grid-template-columns: 2.5fr 1fr;
-  /* Imagem ainda maior */
+  grid-template-columns: 1.2fr 1fr; /* Proporção mais equilibrada para PC */
   gap: var(--space-xl);
   align-items: center;
   position: relative;
   z-index: 2;
+  padding: 50px; /* Mais preenchimento interno */
 }
+
+
+
+
+
 
 .reveal-container::before {
   content: '';
   position: absolute;
-  top: -5%;
-  left: -2%;
-  width: 104%;
-  height: 110%;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
   background: var(--yellow-dark);
   border-radius: 40px;
   z-index: -1;
-  transform: rotate(-1deg);
-  opacity: 0.85;
+  transform: none; /* Removido rotação conforme pedido */
+  opacity: 0.95;
 }
+
+
 
 .reveal-canvas-wrap {
   position: relative;
   width: 100%;
   aspect-ratio: 1;
-  max-width: 1300px;
-  /* Expandido novamente */
+  max-width: 600px; /* Reduzido para não dominar a tela no PC */
   margin: 0 auto;
   cursor: none;
   border-radius: 30px;
@@ -415,6 +428,9 @@ nav {
   z-index: 2;
 }
 
+
+
+
 .reveal-image-col {
   position: relative;
   z-index: 2;
@@ -423,13 +439,14 @@ nav {
 .reveal-hint {
   text-align: center;
   color: var(--teal);
-  font-style: italic;
-  font-weight: 600;
-  /* Retornado para 600 */
+  font-weight: 700;
   margin-top: 25px;
-  font-size: 1.2rem;
-  opacity: 1;
+  font-size: 1.1rem;
+  max-width: 90%;
+  margin-left: auto;
+  margin-right: auto;
 }
+
 
 #revealCanvas {
   width: 100%;
@@ -474,9 +491,12 @@ nav {
 .testimonials-carousel {
   position: relative;
   width: 100%;
+  max-width: 600px; /* Aumentado no PC conforme pedido */
   overflow: hidden;
   padding: 10px 0;
 }
+
+
 
 .carousel-track {
   display: flex;
@@ -549,10 +569,8 @@ nav {
 }
 
 .carousel-btn {
-  background: rgba(255, 255, 255, 0.6);
-  backdrop-filter: blur(20px) saturate(150%);
-  -webkit-backdrop-filter: blur(20px) saturate(150%);
-  border: 1px solid rgba(255, 255, 255, 0.8);
+  background: var(--pure-white); /* Solid white */
+  border: none;
   width: 45px;
   height: 45px;
   border-radius: 50%;
@@ -560,14 +578,15 @@ nav {
   align-items: center;
   justify-content: center;
   transition: all 0.3s;
-  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.05), inset 0 2px 4px rgba(255, 255, 255, 0.6);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
 }
 
 .carousel-btn:hover {
-  background: rgba(255, 255, 255, 0.8);
-  transform: translateY(-2px);
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1), inset 0 2px 4px rgba(255, 255, 255, 0.8);
+  transform: scale(1.1);
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
 }
+
 
 .carousel-btn svg {
   width: 24px;
@@ -601,14 +620,14 @@ nav {
   transform-style: preserve-3d;
   will-change: transform, opacity;
   width: 45vw;
-  /* Aumentado um pouco */
   max-width: 500px;
   height: 600px;
-  /* Altura para acomodar a taça completa */
   display: flex;
   justify-content: center;
   align-items: flex-end;
+  margin-bottom: 10vh; /* Sobe um pouco a taça no PC */
 }
+
 
 .gelato-3d-wrap img {
   filter: drop-shadow(0 30px 60px rgba(0, 0, 0, 0.2));
@@ -625,14 +644,12 @@ nav {
 
 .cup-layer {
   width: 100%;
-  /* Retornado para a mesma proporção inicial da imagem sorvetev2 */
   bottom: 0;
-  /* Reajustado para a base, alinhando perfeitamente */
   z-index: 2;
-  /* Na frente do sorvete */
   opacity: 0;
-  /* Oculto inicialmente */
+  transform: translateY(0);
 }
+
 
 .ice-cream-layer {
   width: 100%;
@@ -1168,4 +1185,303 @@ footer {
   width: 24px;
   height: 24px;
   fill: currentColor;
+}
+
+/* ============================================================
+   15. RESPONSIVIDADE (MOBILE & TABLET)
+   ============================================================ */
+
+/* TABLETS (Abaixo de 1024px) */
+@media (max-width: 1024px) {
+  :root {
+    --space-xl: 4rem;
+    --space-xxl: 6rem;
+  }
+
+  .reveal-container {
+    grid-template-columns: 1fr;
+    gap: var(--space-md);
+  }
+
+  .flavor-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .modal-content {
+    max-width: 95%;
+  }
+}
+
+/* MOBILE (Abaixo de 768px) */
+@media (max-width: 768px) {
+  :root {
+    --space-md: 1.5rem;
+    --space-lg: 2.5rem;
+    --space-xl: 3rem;
+  }
+
+  /* Header & Mobile Menu */
+  #header {
+    padding: var(--space-sm) var(--space-md);
+  }
+
+  nav {
+    display: flex;
+    justify-content: center; /* Centraliza o conteúdo principal (logo) */
+    align-items: center;
+    position: relative;
+    width: 100%;
+  }
+
+  .nav-logo {
+    position: relative; /* Remove absolute para facilitar centralização real */
+    left: auto;
+    top: auto;
+    transform: none;
+    z-index: 10;
+  }
+
+  .nav-logo img {
+
+    height: 45px;
+  }
+
+  .nav-toggle {
+    position: absolute; /* Toggle fica por cima na direita */
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 30px;
+    height: 20px;
+    background: transparent;
+    z-index: 1100;
+  }
+
+
+  .nav-toggle span {
+    display: block;
+    width: 100%;
+    height: 2px;
+    background: var(--teal);
+    transition: all 0.3s var(--ease-fluid);
+    transform-origin: center;
+  }
+
+  .nav-links {
+    position: fixed;
+    top: 0;
+    right: -100%;
+    width: 80%;
+    height: 100vh;
+    background: var(--pure-white);
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-lg);
+    box-shadow: -10px 0 30px rgba(0, 0, 0, 0.05);
+    transition: right 0.5s var(--ease-fluid);
+    z-index: 1050;
+  }
+
+  .nav-links.active {
+    right: 0;
+  }
+
+  .nav-links a {
+    font-size: 1.2rem;
+  }
+
+  /* Hero Section */
+  .hero-content {
+    flex-direction: column;
+    text-align: center;
+    gap: var(--space-md);
+    align-items: center; /* Centraliza itens no flex column */
+  }
+
+  .hero-logo {
+    width: 180px;
+    margin: 0 auto;
+  }
+
+
+  /* Reveal Section */
+  #reveal {
+    padding: var(--space-xl) var(--space-md);
+  }
+
+  .reveal-container {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-md);
+    padding: var(--space-xl) var(--space-md);
+    align-items: center;
+    background: var(--yellow-dark); 
+    border-radius: 24px;
+    margin: 0 auto; /* Centralizado */
+    width: 92%; /* Quase largura total */
+    text-align: center;
+  }
+
+
+  .reveal-container::before {
+    display: none; /* Remove pseudo-elemento no mobile para evitar bugs */
+  }
+
+  .reveal-image-col {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    order: 1;
+  }
+
+  .reveal-hint {
+    order: -1; /* Texto explicativo no topo */
+    margin-bottom: 15px;
+    margin-top: 0;
+    color: var(--teal);
+    font-weight: 700;
+    text-align: center;
+  }
+
+  .reveal-canvas-wrap {
+    width: 100%;
+    max-width: 280px;
+    aspect-ratio: 1;
+  }
+
+  .reveal-content-col {
+    order: 2;
+    width: 100%;
+  }
+
+  .reveal-text h2 {
+    font-size: 1.5rem;
+    color: var(--pure-white);
+    text-align: center;
+  }
+
+  .reveal-text p {
+    font-size: 0.95rem;
+    color: var(--cream);
+    text-align: center;
+    margin-bottom: var(--space-lg);
+  }
+
+
+  /* Carousel Mobile Fix */
+  .testimonials-carousel {
+    max-width: 100%;
+  }
+
+  .testimonial-card {
+    padding: var(--space-sm);
+  }
+
+  .carousel-controls {
+    justify-content: center; /* Centraliza setas no mobile */
+    margin-top: 15px;
+  }
+
+
+
+  .reveal-cursor {
+    display: none; /* Cursor customizado não faz sentido no touch */
+  }
+
+  /* 3D Scroll Animation */
+  .gelato-3d-wrap {
+    width: 90vw;
+    height: 60vh;
+    max-width: none;
+  }
+
+  .nav-toggle {
+    margin-left: auto; /* Garante que o toggle fique na direita se o flex falhar */
+  }
+
+
+
+  /* Flavor Grid */
+  .flavor-grid {
+    grid-template-columns: 1fr;
+    gap: var(--space-md);
+  }
+
+  .flavor-card {
+    padding: var(--space-md);
+  }
+
+  /* Contact Form */
+  .contact-form {
+    padding: var(--space-lg) var(--space-md);
+    border-radius: 24px;
+  }
+
+  .contact-channels {
+    gap: 10px;
+  }
+
+  .contact-channel {
+    width: 100%;
+    justify-content: center;
+  }
+
+
+  /* Footer */
+  .footer-content {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .footer-links {
+    gap: var(--space-md);
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  /* Modal */
+  .modal-content {
+    flex-direction: column;
+    max-height: 90vh;
+    overflow-y: auto;
+  }
+
+  .modal-img-col, 
+  .modal-info-col {
+    width: 100%;
+  }
+
+  .modal-img-col {
+    padding: var(--space-lg);
+  }
+
+  .modal-info-col {
+    padding: var(--space-md) var(--space-lg) var(--space-xl);
+    text-align: center;
+    align-items: center;
+  }
+
+  .modal-info-col h3 {
+    font-size: 2rem;
+  }
+
+  .modal-buy-btn {
+    width: 100%;
+  }
+}
+
+/* Ajustes finos para celulares pequenos */
+@media (max-width: 400px) {
+  h1 {
+    font-size: 3rem;
+  }
+  
+  .gelato-3d-wrap {
+    width: 95vw;
+  }
 }

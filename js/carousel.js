@@ -55,4 +55,31 @@
     autoPlayInterval = setInterval(goNext, 4000);
   });
 
+  /* Swipe Support */
+  if ('ontouchstart' in window || navigator.maxTouchPoints > 0) {
+    let touchStartX = 0;
+    let touchEndX = 0;
+
+    track.addEventListener('touchstart', e => {
+      touchStartX = e.changedTouches[0].screenX;
+    }, { passive: true });
+
+    track.addEventListener('touchend', e => {
+      touchEndX = e.changedTouches[0].screenX;
+      handleSwipe();
+    }, { passive: true });
+
+    function handleSwipe() {
+      const swipeThreshold = 50;
+      if (touchEndX < touchStartX - swipeThreshold) {
+        goNext();
+      }
+      if (touchEndX > touchStartX + swipeThreshold) {
+        goPrev();
+      }
+    }
+  }
+
 })();
+
+
