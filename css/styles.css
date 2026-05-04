@@ -382,16 +382,24 @@ nav {
 
 
 .reveal-container {
-  max-width: 1300px; /* Aumentado para PC conforme pedido */
+  max-width: 1400px; /* Reduzido levemente para o ajuste final horizontal */
   margin: 0 auto;
   display: grid;
-  grid-template-columns: 1.2fr 1fr; /* Proporção mais equilibrada para PC */
+  grid-template-columns: 1.2fr 1fr; /* Rebalanceado para carrossel ainda maior */
   gap: var(--space-xl);
   align-items: center;
   position: relative;
   z-index: 2;
-  padding: 50px; /* Mais preenchimento interno */
+  padding: 15px 60px; /* Aumentado levemente verticalmente */
 }
+
+
+
+
+
+
+
+
 
 
 
@@ -408,9 +416,12 @@ nav {
   background: var(--yellow-dark);
   border-radius: 40px;
   z-index: -1;
-  transform: none; /* Removido rotação conforme pedido */
+  transform: rotate(-0.5deg); /* Rotação ainda mais sutil */
+
   opacity: 0.95;
 }
+
+
 
 
 
@@ -418,9 +429,14 @@ nav {
   position: relative;
   width: 100%;
   aspect-ratio: 1;
-  max-width: 600px; /* Reduzido para não dominar a tela no PC */
+  max-width: 460px; /* Reduzido levemente para ajuste final */
+
+
   margin: 0 auto;
   cursor: none;
+
+
+
   border-radius: 30px;
   /* Formato fixo */
   overflow: hidden;
@@ -475,26 +491,40 @@ nav {
 
 .reveal-text h2 {
   color: var(--pure-white);
-  margin-bottom: var(--space-sm);
+  margin-bottom: 10px; /* Aumentado levemente */
   text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   font-weight: 800;
+  font-size: 2.4rem; /* Aumentado minimamente conforme pedido */
 }
+
+
+
+
 
 .reveal-text p {
   color: var(--cream);
   opacity: 0.9;
-  margin-bottom: var(--space-lg);
+  margin-bottom: 15px; /* Aumentado levemente */
   font-weight: 500;
+  font-size: 1.1rem; /* Aumentado minimamente */
 }
+
+
+
 
 /* --- Carrossel de Avaliações --- */
 .testimonials-carousel {
   position: relative;
   width: 100%;
-  max-width: 600px; /* Aumentado no PC conforme pedido */
+  max-width: 700px; /* Aumentado horizontalmente conforme pedido */
   overflow: hidden;
-  padding: 10px 0;
+  padding: 5px 0; /* Reduzido padding interno */
 }
+
+
+
+
+
 
 
 
@@ -564,9 +594,10 @@ nav {
 .carousel-controls {
   display: flex;
   gap: 15px;
-  margin-top: 20px;
+  margin-top: 10px; /* Reduzido margin top */
   justify-content: flex-end;
 }
+
 
 .carousel-btn {
   background: var(--pure-white); /* Solid white */

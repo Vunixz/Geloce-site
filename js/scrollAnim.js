@@ -50,8 +50,8 @@
     }
 
     // --- 2. TROCA DE IMAGENS INICIAL ---
-    // Atrasado para 0.12 para dar bastante tempo do usuário ver o início do scroll com a taça completa
-    if (progress > 0.12) {
+    // Aumentado para 0.2 para dar mais tempo com a taça completa
+    if (progress > 0.2) {
       fullCup.style.opacity = 0;
       iceCream.style.opacity = 1;
       emptyCup.style.opacity = 1;
@@ -61,6 +61,7 @@
       emptyCup.style.opacity = 0;
     }
 
+
     // --- 3. ANIMAÇÃO DE ZOOM E QUEDA ---
     const easeProgress = easeInOutQuad(progress);
 
@@ -69,31 +70,31 @@
     const rotateX = mapRange(easeProgress, 0, 0.4, 0, 5);
     gelato3D.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
 
-    // A Taça Vazia: Desce rápido, diminui e vai sumindo LENTAMENTE
-    const cupTranslateY = mapRange(progress, 0.12, 0.45, 0, 500); 
-    const cupScale = mapRange(progress, 0.12, 0.45, 1, 0.4); 
-    const cupOpacity = 1 - mapRange(progress, 0.12, 0.7, 0, 1); // Esticado até 0.7 para sumir bem mais devagar 
+    // A Taça Vazia: Começa a descer apenas após 0.2
+    const cupTranslateY = mapRange(progress, 0.2, 0.5, 0, 500); 
+    const cupScale = mapRange(progress, 0.2, 0.5, 1, 0.4); 
+    const cupOpacity = 1 - mapRange(progress, 0.2, 0.7, 0, 1); 
     
     emptyCup.style.transform = `translateY(${cupTranslateY}px) scale(${cupScale})`;
     // Apenas aplica opacidade se já fizemos a troca das imagens
-    if (progress > 0.12) emptyCup.style.opacity = cupOpacity;
+    if (progress > 0.2) emptyCup.style.opacity = cupOpacity;
+
 
     // O Sorvete: Levanta ligeiramente e dá um Zoom brutal no centro
     // Retornado para easeInCubic original
-    const zoomProgress = easeInCubic(Math.max(0, (progress - 0.1) / 0.8));
+    // O Sorvete: Começa a crescer após 0.2
+    const zoomProgress = easeInCubic(Math.max(0, (progress - 0.2) / 0.75));
     
-    // Mover o sorvete um pouco para o centro (Y) para centralizar o zoom
-    // Usamos transform-origin em CSS, mas aqui garantimos que a bola de sorvete fique no meio da tela
-    const iceTranslateY = mapRange(easeOutCubic(progress), 0.1, 0.7, 0, 180);
+    const iceTranslateY = mapRange(easeOutCubic(progress), 0.2, 0.7, 0, 180);
     
-    // Escalar de 1x para 6x (para não perder qualidade excessiva)
+    // Escalar de 1x para 6x 
     const iceScale = 1 + (5 * zoomProgress);
     
-    // O sorvete some totalmente no final (progress > 0.8) de forma mais suave e precoce
     const iceFinalOpacity = 1 - mapRange(progress, 0.7, 0.85, 0, 1);
 
     iceCream.style.transform = `translateY(${iceTranslateY}px) scale(${iceScale})`;
-    if (progress > 0.12) iceCream.style.opacity = iceFinalOpacity;
+    if (progress > 0.2) iceCream.style.opacity = iceFinalOpacity;
+
     
     // Evita bloqueio de ponteiro sobre o cardápio
     if (progress >= 0.85) {
